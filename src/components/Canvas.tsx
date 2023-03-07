@@ -7,7 +7,7 @@ type CanvasProps = {
 
 const Canvas: FC<CanvasProps> = ({ isOpen }) => {
   return (
-    <div className="flex flex-col gap-2 rounded-md border-2 border-dashed">
+    <div className="w-full max-w-[243px] flex flex-col gap-2 items-center justify-center rounded-md border-2 border-dashed">
       <div className="flex flex-col items-center">
         <img src={icon} alt="picture" className="w-6 h-6 block mb-3" />
         <h2 className="mb-1 text-sm font-medium leading-4 text-blue-500">Перетащите сюда</h2>

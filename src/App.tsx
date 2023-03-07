@@ -5,10 +5,15 @@ import Constructor from './components/Constructor';
 
 const App = () => {
   return (
-    <div>
-      <Switcher isConstructor={true} isRunning={false} />
-      <Constructor isOpen={true} />
-      <Canvas isOpen={true} />
+    <div className="max-w-[695px] w-full px-20 mx-auto flex flex-col ">
+      <header className="py-10 flex justify-end">
+        <Switcher isConstructor={true} isRunning={false} />
+      </header>
+
+      <main className="flex gap-14">
+        <Constructor isOpen={true} />
+        <Canvas isOpen={true} />
+      </main>
     </div>
   );
 };

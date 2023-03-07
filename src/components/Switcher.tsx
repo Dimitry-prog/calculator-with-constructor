@@ -14,7 +14,7 @@ const Switcher: FC<SwitcherProps> = ({ isRunning, isConstructor }) => {
     <div className="flex justify-between p-px max-w-[243px] w-full rounded-md bg-gray-100">
       <button
         className={`${
-          isRunning ? 'bg-white border-gray-200 ' : ''
+          isRunning ? 'bg-white border-gray-200 border' : ''
         } flex items-center gap-2 px-3 py-2 text-gray-600 text-sm leading-[15px] font-medium rounded`}
         type="button"
       >
@@ -23,7 +23,7 @@ const Switcher: FC<SwitcherProps> = ({ isRunning, isConstructor }) => {
       </button>
       <button
         className={`${
-          isConstructor ? 'bg-white border-gray-200' : ''
+          isConstructor ? 'bg-white border-gray-200 border' : ''
         } flex items-center gap-2 px-3 py-2 text-gray-600 text-sm leading-[15px] font-medium rounded`}
         type="button"
       >
