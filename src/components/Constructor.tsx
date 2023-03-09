@@ -8,6 +8,8 @@ type ConstructorProps = {
 };
 
 const Constructor: FC<ConstructorProps> = ({ isOpen }) => {
+  const handleBtnClick = (value: string) => {};
+
   return (
     <div className="w-full flex flex-col gap-3">
       <Substrate>
@@ -20,21 +22,28 @@ const Constructor: FC<ConstructorProps> = ({ isOpen }) => {
 
       <Substrate>
         {calcAction.map((action) => (
-          <CalcButton action={action} key={action} />
+          <CalcButton action={action} key={action} onClick={() => handleBtnClick(action)} />
         ))}
       </Substrate>
 
       <Substrate classes="flex-wrap">
         {calcNumAndComma.map((btn) => {
           if (btn === '0') {
-            return <CalcButton action={btn} key={btn} classes="min-w-[152px]" />;
+            return (
+              <CalcButton
+                action={btn}
+                onClick={() => handleBtnClick(btn)}
+                key={btn}
+                classes="min-w-[152px]"
+              />
+            );
           }
-          return <CalcButton action={btn} key={btn} />;
+          return <CalcButton action={btn} onClick={() => handleBtnClick(btn)} key={btn} />;
         })}
       </Substrate>
 
       <Substrate>
-        <CalcButton action="=" classes="min-w-full" />
+        <CalcButton action="=" classes="min-w-full" onClick={() => handleBtnClick('=')} />
       </Substrate>
     </div>
   );
