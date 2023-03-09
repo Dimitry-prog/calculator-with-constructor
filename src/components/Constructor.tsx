@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Substrate from './Substrate';
 import CalcButton from './UI/CalcButton';
+import { calcAction, calcNumAndComma } from '../utils/constants';
 
 type ConstructorProps = {
   isOpen: boolean;
@@ -18,24 +19,18 @@ const Constructor: FC<ConstructorProps> = ({ isOpen }) => {
       </Substrate>
 
       <Substrate>
-        <CalcButton action="/" />
-        <CalcButton action="x" />
-        <CalcButton action="-" />
-        <CalcButton action="+" />
+        {calcAction.map((action) => (
+          <CalcButton action={action} key={action} />
+        ))}
       </Substrate>
 
       <Substrate classes="flex-wrap">
-        <CalcButton action="7" />
-        <CalcButton action="8" />
-        <CalcButton action="9" />
-        <CalcButton action="4" />
-        <CalcButton action="5" />
-        <CalcButton action="6" />
-        <CalcButton action="1" />
-        <CalcButton action="2" />
-        <CalcButton action="3" />
-        <CalcButton action="0" classes="min-w-[152px]" />
-        <CalcButton action="," />
+        {calcNumAndComma.map((btn) => {
+          if (btn === '0') {
+            return <CalcButton action={btn} key={btn} classes="min-w-[152px]" />;
+          }
+          return <CalcButton action={btn} key={btn} />;
+        })}
       </Substrate>
 
       <Substrate>
