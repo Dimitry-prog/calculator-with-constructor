@@ -5,17 +5,27 @@ import { calcAction, calcNumAndComma } from '../utils/constants';
 import { useAppSelector } from '../hooks/useTypedSelector';
 import { useAppDispatch } from '../hooks/useTypedDispatch';
 import { getResult, setActionSign, setCurrentValue } from 'store/calcSlice';
-import { IEquals } from '../types/models';
+import { IDragOrder, IEquals } from '../types/models';
 import { replaceStr } from '../utils/replaceStr';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 type ConstructorProps = {
   isOpen: boolean;
+  setFields: React.Dispatch<React.SetStateAction<IDragOrder[]>>;
+  fields: IDragOrder[];
 };
 
-const Constructor: FC<ConstructorProps> = ({ isOpen }) => {
+const Constructor: FC<ConstructorProps> = ({ isOpen, fields }) => {
   const { currentValue, calculateValue, sign } = useAppSelector((state) => state.calc);
   const dispatch = useAppDispatch();
-
+  const outputDrag = fields.findIndex((elem) => elem.name === 'output');
+  const actionsDrag = fields.findIndex((elem) => elem.name === 'actions');
+  const numbersDrag = fields.findIndex((elem) => elem.name === 'numbers');
+  const equalDrag = fields.findIndex((elem) => elem.name === 'equal');
+  console.log(outputDrag);
+  console.log('actionsDrag', actionsDrag);
+  console.log('numbersDrag', numbersDrag);
+  console.log('equalDrag', equalDrag);
   const handleOperationBtnClick = (sign: string): void => {
     dispatch(setActionSign(sign));
     if (calculateValue && currentValue) {
@@ -79,39 +89,90 @@ const Constructor: FC<ConstructorProps> = ({ isOpen }) => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-3">
-      <Substrate>
-        <div className="px-2 py-1 w-full text-right text-4xl font-extrabold text-black bg-gray-100 rounded-md overflow-hidden">
-          {currentValue}
+    <Droppable droppableId="constructor">
+      {(provided, snapshot) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          className={`w-full flex flex-col gap-3 ${
+            snapshot.isDraggingOver ? 'opacity-70 bg-gray-200' : ''
+          }`}
+        >
+          <Draggable draggableId={outputDrag.toString()} index={outputDrag} key={outputDrag}>
+            {(provided, snapshot) => (
+              <Substrate
+                draqRef={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                classes={`${snapshot.isDragging ? 'bg-gray-100' : ''}`}
+              >
+                <div
+                  className={`${
+                    currentValue.length >= 11 ? 'text-2xl' : 'text-4xl'
+                  } px-2 py-1 w-full text-right font-extrabold text-black bg-gray-100 rounded-md overflow-hidden`}
+                >
+                  {currentValue}
+                </div>
+              </Substrate>
+            )}
+          </Draggable>
+
+          <Draggable draggableId={actionsDrag.toString()} index={actionsDrag} key={actionsDrag}>
+            {(provided, snapshot) => (
+              <Substrate
+                draqRef={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                classes={`${snapshot.isDragging ? 'bg-gray-100' : ''}`}
+              >
+                {calcAction.map((action) => (
+                  <CalcButton action={action} key={action} onClick={() => handleBtnClick(action)} />
+                ))}
+              </Substrate>
+            )}
+          </Draggable>
+
+          <Draggable draggableId={numbersDrag.toString()} index={numbersDrag} key={numbersDrag}>
+            {(provided, snapshot) => (
+              <Substrate
+                draqRef={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                classes={`flex-wrap ${snapshot.isDragging ? 'bg-gray-100' : ''}`}
+              >
+                {calcNumAndComma.map((btn) => {
+                  if (btn === '0') {
+                    return (
+                      <CalcButton
+                        action={btn}
+                        onClick={() => handleBtnClick(btn)}
+                        key={btn}
+                        classes="min-w-[152px]"
+                      />
+                    );
+                  }
+                  return <CalcButton action={btn} onClick={() => handleBtnClick(btn)} key={btn} />;
+                })}
+              </Substrate>
+            )}
+          </Draggable>
+
+          <Draggable draggableId={equalDrag.toString()} index={equalDrag} key={equalDrag}>
+            {(provided, snapshot) => (
+              <Substrate
+                draqRef={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                classes={`${snapshot.isDragging ? 'bg-gray-100' : ''}`}
+              >
+                <CalcButton action="=" classes="min-w-full" onClick={() => handleBtnClick('=')} />
+              </Substrate>
+            )}
+          </Draggable>
+          {provided.placeholder}
         </div>
-      </Substrate>
-
-      <Substrate>
-        {calcAction.map((action) => (
-          <CalcButton action={action} key={action} onClick={() => handleBtnClick(action)} />
-        ))}
-      </Substrate>
-
-      <Substrate classes="flex-wrap">
-        {calcNumAndComma.map((btn) => {
-          if (btn === '0') {
-            return (
-              <CalcButton
-                action={btn}
-                onClick={() => handleBtnClick(btn)}
-                key={btn}
-                classes="min-w-[152px]"
-              />
-            );
-          }
-          return <CalcButton action={btn} onClick={() => handleBtnClick(btn)} key={btn} />;
-        })}
-      </Substrate>
-
-      <Substrate>
-        <CalcButton action="=" classes="min-w-full" onClick={() => handleBtnClick('=')} />
-      </Substrate>
-    </div>
+      )}
+    </Droppable>
   );
 };
 
