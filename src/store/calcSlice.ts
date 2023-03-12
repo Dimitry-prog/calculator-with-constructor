@@ -4,12 +4,14 @@ type CalcState = {
   sign: string;
   currentValue: string;
   calculateValue: string | null;
+  isRunning: boolean;
 };
 
 const initialState: CalcState = {
   sign: '',
   currentValue: '0',
   calculateValue: null,
+  isRunning: false,
 };
 
 const calcSlice = createSlice({
@@ -32,9 +34,12 @@ const calcSlice = createSlice({
       state.currentValue = action.payload;
       state.calculateValue = null;
     },
+    toggleRunning(state, action: PayloadAction<boolean>) {
+      state.isRunning = action.payload;
+    },
   },
 });
 
-export const { setCurrentValue, setActionSign, getResult } = calcSlice.actions;
+export const { setCurrentValue, setActionSign, getResult, toggleRunning } = calcSlice.actions;
 
 export default calcSlice.reducer;
