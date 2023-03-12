@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import Substrate from './Substrate';
 import CalcButton from './UI/CalcButton';
 import { calcAction, calcNumAndComma } from '../utils/constants';
-import { useAppSelector } from '../hooks/useTypedSelector';
 import { IDragOrder } from '../types/models';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
