@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/test-sendsay/static/css/main.a0372506.css",
-    "main.js": "/test-sendsay/static/js/main.0f87770c.js",
-    "static/media/img_icon.svg": "/test-sendsay/static/media/img_icon.ff2a0d409c14819260b08f919e659b64.svg",
-    "index.html": "/test-sendsay/index.html",
-    "main.a0372506.css.map": "/test-sendsay/static/css/main.a0372506.css.map",
-    "main.0f87770c.js.map": "/test-sendsay/static/js/main.0f87770c.js.map"
+    "main.css": "/calculator-with-constructor/static/css/main.a0372506.css",
+    "main.js": "/calculator-with-constructor/static/js/main.1e36f9e3.js",
+    "static/media/img_icon.svg": "/calculator-with-constructor/static/media/img_icon.ff2a0d409c14819260b08f919e659b64.svg",
+    "index.html": "/calculator-with-constructor/index.html",
+    "main.a0372506.css.map": "/calculator-with-constructor/static/css/main.a0372506.css.map",
+    "main.1e36f9e3.js.map": "/calculator-with-constructor/static/js/main.1e36f9e3.js.map"
   },
   "entrypoints": [
     "static/css/main.a0372506.css",
-    "static/js/main.0f87770c.js"
+    "static/js/main.1e36f9e3.js"
   ]
 }
