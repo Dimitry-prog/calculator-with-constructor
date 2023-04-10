@@ -1,7 +1,7 @@
 {
   "name": "momentum-app",
   "version": "0.1.0",
-  "homepage": "https://dimitry-prog.github.io/test-sendsay/",
+  "homepage": "https://dimitry-prog.github.io/calculator-with-constructor/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
